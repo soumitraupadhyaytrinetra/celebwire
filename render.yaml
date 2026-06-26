@@ -1,37 +1,15 @@
-# Render Blueprint for DeepWire Celebs (celebwire).
-#
-# How to use:
-#   1. Sign in to https://dashboard.render.com/
-#   2. Click "New" → "Blueprint"
-#   3. Connect the `soumitraupadhyaytrinetra/celebwire` repo
-#   4. Render detects this file and pre-fills the static-site config
-#   5. Click "Apply"
-#
-# The data refresh pipeline (`.github/workflows/ingest.yml`) runs every
-# 2 hours on GitHub Actions, commits fresh articles to `data/articles.json`
-# on `main`, and Render's `autoDeploy: true` rebuilds + republishes the
-# static site on each push.
-
 services:
   - type: static_site
     name: celebwire
-    runtime: static
     repo: https://github.com/soumitraupadhyaytrinetra/celebwire.git
     branch: main
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
     autoDeploy: true
     headers:
-      # Long-cache hashed assets emitted to /_astro/
       - path: /_astro/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
-      # Short-cache for HTML so the 2-hour refresh is visible quickly
       - path: /*
         name: Cache-Control
         value: public, max-age=300
-    rewrites:
-      # Astro emits /story/<id>/index.html; map a clean URL fallback for
-      # clients that strip the trailing slash.
-      - source: /story/:id
-        destination: /story/:id/index.html
