@@ -26,7 +26,7 @@ It is the celebrity-sector sibling of [FinWire](https://github.com/soumitraupadh
 ### Clone and install
 
 ```sh
-git clone https://github.com/soumitraupadhyaytrinetra/deepwire-celebs.git
+git clone https://github.com/soumitraupadhyaytrinetra/celebwire.git
 cd deepwire-celebs
 npm install
 npm run dev

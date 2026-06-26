@@ -4,11 +4,11 @@ name: Refresh News
 # to main, which triggers Render to auto-rebuild and redeploy.
 
 on:
-  # Every 6 hours (UTC: 00:00, 06:00, 12:00, 18:00). Tuned to fit GitHub
-  # Actions' free tier (2,000 min/month on private repos) given DeepWire
-  # Celebs' ~12 min per full-site ingest.
+  # Every 2 hours (UTC: 00:00, 02:00, 04:00, ..., 22:00). Celebwire is a
+  # public repo so GitHub Actions minutes are free; ~12 min per run × 12 runs
+  # per day = 4320 min/month, well within the public-repo allowance.
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */2 * * *"
   # Manual trigger from the Actions tab.
   workflow_dispatch:
   # Auto-run when source config changes are pushed.
